@@ -2,84 +2,55 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-/**
- * format_char - formarts character
- * @separator: the string operator
- * @arg: argument pointer
- */
-void format_char(char *separator, va_list arg)
-{
-	printf("%s%c", separator, va_arg(arg, int));
-}
-
-/**
- * format_int - formarts integer
- * @separator: the tring operator
- * @arg: argument pointer
- */
-void format_int(char *separator, va_list arg)
-{
-	printf("%s%d", separator, va_arg(arg, int));
-}
-
-/**
- * format_float - formarts float
- * @separator: the string operar
- * @arg: argument pointer
- */
-void format_float(char *separator, va_list arg)
-{
-	printf("%s%f", separator, va_arg(arg, double));
-}
-
-/**
- * format_string - formats string
- * @separator: the string operator
- * @arg: argument point
- */
-
-void format_string(char *separator, va_list arg)
-{
-	char *str = va_arg(arg, char *);
-
-	switch ((int)(!str))
-	case 1:
-		str = "(nil)";
-
-	printf("%s%s", separator, str);
-}
-
-/**
- * print_all - prints anything
- * @format: formart ing
- */
 void print_all(const char * const format, ...)
 {
-	int i = 0, j;
-	char *separator = "";
-	va_list arg;
-	token_t tokens[] = {
-		{"c", format_char},
-		{"d", format_int},
-		{"f", format_float},
-		{"f", format_string},
-		{NULL, NULL}
-	};
-	va_start(arg, format);
-
-	while (format && format[i])
+	va_list args;
+	va_start(args, format);
+	for (const char *c = format; *c != '\0'; c++)
 	{
-		j = 0;
-		while (tokens[j].token)
+		switch (*c)
 		{
-			if (format[i] == tokens[j].token[0])
-			{
-				tokens[j].f(separator, arg);
-			}
-			j++;
+			case 'c':
+				{
+					char ch = va_arg(args, int);
+					printf("%c", ch);
+					break;
+				}
+			case 'i':
+				{
+					int num = va_arg(args, int);
+					printf("%d", num);
+					break;
+				}
+			case 'f':
+				{
+					float num = va_arg(args, double);
+					printf("%f", num);
+					break;
+				}
+			case 's':
+				{
+					char *str = va_arg(args, char *);
+					if (str == NULL)
+					{
+						printf("(nil)");
+					}
+					else 
+					{
+						printf("%s", str);
+					}
+					break;
+				}
+			default:
+				break;
 		}
-		i++;
 	}
-	va_end(arg);
-	printf("\n");
+	va_end(args);
 }
+
+int main(void)
+{
+	print_all("cisf", 'A', 42, 3.14, "Hello");
+	return 0;
+}
+
