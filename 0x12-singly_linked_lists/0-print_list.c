@@ -2,23 +2,38 @@
 
 /**
  * print_list - prints all elements of a list
- * @h: input
- *
- * Return: number of nodes
+ * @h: string t check lenth
+ * Return: integer length of string
  */
+int _strlen(char *s)
+{
+	int i = 0;
 
+	if (!s)
+		return (0);
+	while (*s++)
+	{
+		i++;
+	}
+	return (i);
+}
+
+/**
+ * print_list - prints  elements of a list_t list
+ * @h: pointer to head nod
+ *
+ * Return: No. of nods
+ */
 size_t print_list(const list_t *h)
 {
-	size_t s = o;
+	size_t i = 0;
 
 	while (h)
 	{
-		if (!h->str)
-			printf("[0] (nil)\n");
-		else
-			printf("[%u] %s\n", h->str);
+		printf("[%d] %s\n", _strlen(h->str), h->str ? h->str : "(nil)");
 		h = h->next;
-		s++;
+
+		i++;
 	}
-	return (s);
+	return (i);
 }
