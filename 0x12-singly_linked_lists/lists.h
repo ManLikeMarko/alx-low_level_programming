@@ -10,6 +10,7 @@ typedef struct lists_s
 }
 list_t;
 
+int _strlen(char *s);
 int _putchar(char c);
 size_t print_list(const list_t *h);
 size_t list_len(const list_t *h);
