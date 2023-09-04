@@ -2,31 +2,26 @@
 /**
  * read_textfile - function that reads textfile and prints to POSIX
  * @filename: list
-
+ * @letters: bytes to read
  *
- * Returns: 1 or 0
+ * Returns: bytes printed
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd, ret;
-	char buf[BUF_SIZE + 1];
-	size_t cpt = 0;
+	int file_data;
+	ssize_t bytes;
+	char buf[BUF_SIZE * 8];
 
-	if (filename == NULL)
+	if (!filename || !letters)
 		return (0);
 
-	fd = open(filename, 0_RDONLY);
-
-	if (fd == -1)
+	file_data = open(filename, O_RDONLY);
+	if (file_data == -1)
 		return (0);
 
-	while ((ret = read(fd, buf, letters)))
-	{
-		buf[ret] = '\0';
-		printf("%s", buf);
-		cpt += ret;
-	}
+	bytes = read(file_data, &buf[0], letters);
+	bytes = write(STDOUT_FILENO, &buf[0], bytes);
+	close(file_data);
 
-	close(fd);
-	return (cpt);
+	return (bytes);
 }
