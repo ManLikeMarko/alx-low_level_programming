@@ -2,8 +2,8 @@
 
 /**
  * set_bit - sets a bit of a given index to 1
- * @n: pointer to the number to change
- * @index: index of the bit to set to 1
+ * @n: pointerto te numer to chang
+ * @index: index f the bit t set to 1
  *
  * Return: 1 for success, -1 for failure
  */
