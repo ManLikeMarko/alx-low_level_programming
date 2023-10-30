@@ -10,7 +10,6 @@
 int main(int ac, char **av)
 {
 	ssize_t n;
-	
 	if (ac != 2)
 	{
 		dprintf(2, "Usage: %s filename\n", av[0]);
