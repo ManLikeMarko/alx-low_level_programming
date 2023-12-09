@@ -8,7 +8,7 @@
 
 void free_dlistint(dlistint_t *head)
 {
-	dlistint *current, *temp;
+	dlistint_t *current, *temp;
 
 	current = head;
 
